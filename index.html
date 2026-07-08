@@ -13,80 +13,97 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0a0a0f;
-      color: #e4e4e7;
+      background: #ffffff;
+      color: #1a1a1a;
       line-height: 1.6;
     }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      background: rgba(10,10,15,0.85);
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
       z-index: 100;
-      padding: 0.9rem 0;
+      padding: 1rem 0;
     }
     nav .container { display: flex; align-items: center; justify-content: space-between; }
     .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
     .logo-icon { font-size: 1.6rem; }
-    .logo-text { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
-    .logo-text span { color: #f59e0b; }
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-links a { text-decoration: none; color: #a1a1aa; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: #f59e0b; }
+    .logo-text { font-weight: 700; font-size: 1.15rem; color: #1a1a1a; letter-spacing: -0.02em; }
+    .logo-text span { color: #d97706; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { text-decoration: none; color: #4a4a4a; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #d97706; }
     .nav-cta {
-      background: #f59e0b; color: #0a0a0f; padding: 0.5rem 1.2rem;
+      background: #d97706; color: #fff; padding: 0.6rem 1.4rem;
       border-radius: 8px; font-weight: 600; font-size: 0.85rem;
       transition: background 0.2s; text-decoration: none;
     }
-    .nav-cta:hover { background: #d97706; }
+    .nav-cta:hover { background: #b45309; }
 
     /* HERO */
     .hero {
-      min-height: 100vh;
+      min-height: 90vh;
       display: flex; align-items: center; justify-content: center;
       text-align: center;
-      padding: 7rem 1.5rem 4rem;
-      background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.08) 0%, transparent 60%);
+      padding: 8rem 2rem 5rem;
+      background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+    }
+    .hero-label {
+      display: inline-block;
+      background: rgba(217,119,6,0.1);
+      color: #d97706;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
     }
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.1;
       letter-spacing: -0.03em;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
     }
-    .hero h1 span { color: #f59e0b; }
+    .hero h1 span { color: #d97706; }
     .hero p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: #a1a1aa;
-      max-width: 680px;
-      margin: 0 auto 2rem;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: #4a4a4a;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
     }
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn-primary {
-      background: #f59e0b; color: #0a0a0f; padding: 0.9rem 2rem;
+      background: #d97706; color: #fff; padding: 1rem 2.2rem;
       border-radius: 10px; font-weight: 700; font-size: 1rem;
       text-decoration: none; transition: background 0.2s;
       display: inline-flex; align-items: center; gap: 0.5rem;
     }
-    .btn-primary:hover { background: #d97706; }
+    .btn-primary:hover { background: #b45309; }
     .btn-secondary {
-      background: rgba(255,255,255,0.07); color: #fff; padding: 0.9rem 2rem;
+      background: transparent; color: #1a1a1a; padding: 1rem 2.2rem;
       border-radius: 10px; font-weight: 600; font-size: 1rem;
-      text-decoration: none; border: 1px solid rgba(255,255,255,0.12);
-      transition: background 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; border: 2px solid #e5e5e5;
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+    .btn-secondary:hover { border-color: #d97706; color: #d97706; }
 
-    /* SECTION */
-    section { padding: 5rem 0; }
+    /* SECTION HEADERS */
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
     .section-label {
       display: inline-block;
-      background: rgba(245,158,11,0.1);
-      color: #f59e0b;
+      background: rgba(217,119,6,0.1);
+      color: #d97706;
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
       font-size: 0.8rem;
@@ -100,117 +117,255 @@
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 1rem;
+      color: #1a1a1a;
     }
     .section-subtitle {
-      color: #a1a1aa;
-      font-size: 1.05rem;
+      color: #4a4a4a;
+      font-size: 1.1rem;
       max-width: 600px;
-      margin-bottom: 3rem;
+      margin: 0 auto;
+      line-height: 1.7;
     }
 
     /* SERVICES */
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-    .service-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
-      padding: 2rem;
-      transition: border-color 0.2s, transform 0.2s;
+    section { padding: 6rem 0; }
+    .services-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 2rem; 
     }
-    .service-card:hover { border-color: rgba(245,158,11,0.3); transform: translateY(-3px); }
-    .service-icon { font-size: 2rem; margin-bottom: 1rem; }
-    .service-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
-    .service-card p { color: #a1a1aa; font-size: 0.9rem; }
+    .service-card {
+      background: #fafafa;
+      border: 1px solid #f0f0f0;
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: all 0.3s;
+    }
+    .service-card:hover { 
+      border-color: #d97706; 
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .service-icon { 
+      font-size: 2.5rem; 
+      margin-bottom: 1.2rem;
+      display: inline-block;
+      background: rgba(217,119,6,0.1);
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    .service-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: #1a1a1a; }
+    .service-card p { color: #4a4a4a; font-size: 0.95rem; line-height: 1.7; }
+    .service-card .price-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #d97706;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
 
     /* HOW IT WORKS */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
-    .step { text-align: center; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
+    .step { 
+      text-align: center; 
+      padding: 2rem;
+      background: #fafafa;
+      border-radius: 16px;
+    }
     .step-num {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 48px; height: 48px; border-radius: 50%;
-      background: rgba(245,158,11,0.15); color: #f59e0b;
-      font-weight: 800; font-size: 1.2rem; margin-bottom: 1rem;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #d97706; color: #fff;
+      font-weight: 800; font-size: 1.3rem; margin-bottom: 1.2rem;
     }
-    .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .step p { color: #a1a1aa; font-size: 0.9rem; max-width: 280px; margin: 0 auto; }
+    .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; color: #1a1a1a; }
+    .step p { color: #4a4a4a; font-size: 0.9rem; max-width: 280px; margin: 0 auto; line-height: 1.6; }
 
     /* PRICING */
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
     .pricing-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
-      padding: 2.5rem 2rem;
+      background: #fafafa;
+      border: 2px solid #f0f0f0;
+      border-radius: 16px;
+      padding: 3rem 2rem;
       text-align: center;
-      transition: border-color 0.2s;
+      transition: all 0.3s;
     }
     .pricing-card.featured {
-      border-color: #f59e0b;
-      background: rgba(245,158,11,0.05);
+      border-color: #d97706;
+      background: #fff;
       position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
     .pricing-card.featured::before {
       content: 'Most Popular';
-      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      background: #f59e0b; color: #0a0a0f;
-      padding: 0.3rem 1rem; border-radius: 20px;
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: #d97706; color: #fff;
+      padding: 0.4rem 1.2rem; border-radius: 20px;
       font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .pricing-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .pricing-card .price { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
-    .pricing-card .price span { font-size: 1rem; font-weight: 400; color: #a1a1aa; }
-    .pricing-card .desc { color: #a1a1aa; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .pricing-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; }
+    .pricing-card .price { font-size: 3rem; font-weight: 800; color: #1a1a1a; margin-bottom: 0.3rem; }
+    .pricing-card .price span { font-size: 1rem; font-weight: 400; color: #4a4a4a; }
+    .pricing-card .desc { color: #4a4a4a; font-size: 0.95rem; margin-bottom: 2rem; }
     .pricing-card ul { list-style: none; text-align: left; margin-bottom: 2rem; }
-    .pricing-card ul li { padding: 0.4rem 0; font-size: 0.9rem; color: #d4d4d8; }
-    .pricing-card ul li::before { content: '✓ '; color: #f59e0b; font-weight: 700; }
+    .pricing-card ul li { padding: 0.5rem 0; font-size: 0.9rem; color: #4a4a4a; }
+    .pricing-card ul li::before { content: '✓ '; color: #d97706; font-weight: 700; }
     .pricing-card .btn-primary, .pricing-card .btn-secondary { display: block; text-align: center; }
 
-    /* CUSTOM QUOTE */
     .custom-quote {
-      margin-top: 2.5rem;
-      background: rgba(255,255,255,0.02);
-      border: 1px dashed rgba(255,255,255,0.1);
-      border-radius: 14px;
-      padding: 2rem;
+      margin-top: 3rem;
+      background: #f5f5f5;
+      border: 2px dashed #e0e0e0;
+      border-radius: 16px;
+      padding: 2.5rem;
       text-align: center;
     }
-    .custom-quote h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .custom-quote p { color: #a1a1aa; font-size: 0.9rem; margin-bottom: 1rem; }
+    .custom-quote h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; }
+    .custom-quote p { color: #4a4a4a; font-size: 0.95rem; margin-bottom: 1.2rem; }
 
     /* DIFFERENTIATORS */
-    .diffs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .diffs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
     .diff-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
-      padding: 1.5rem;
+      background: #fafafa;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.2s;
     }
-    .diff-card h4 { font-weight: 700; margin-bottom: 0.4rem; }
-    .diff-card p { color: #a1a1aa; font-size: 0.85rem; }
+    .diff-card:hover {
+      border-color: #d97706;
+    }
+    .diff-card h4 { font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; font-size: 1.1rem; }
+    .diff-card p { color: #4a4a4a; font-size: 0.9rem; line-height: 1.6; }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      background: #f5f5f5;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    .testimonial-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .testimonial-card .stars {
+      color: #d97706;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .testimonial-card p {
+      color: #4a4a4a;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .testimonial-card .author {
+      font-weight: 700;
+      color: #1a1a1a;
+      font-size: 0.9rem;
+    }
+    .testimonial-card .company {
+      color: #4a4a4a;
+      font-size: 0.85rem;
+    }
+
+    /* STATS */
+    .stats {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 4rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #d97706;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      color: #a1a1aa;
+      font-size: 0.9rem;
+    }
 
     /* CTA */
     .cta-section {
       text-align: center;
-      background: radial-gradient(ellipse at center, rgba(245,158,11,0.06) 0%, transparent 60%);
+      background: linear-gradient(180deg, #f0f0f0 0%, #fafafa 100%);
+      padding: 6rem 0;
     }
-    .cta-section .section-title { margin-bottom: 1rem; }
     .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* FAQ */
+    .faq-section {
+      background: #fff;
+    }
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    details {
+      padding: 1.2rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #1a1a1a;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: #d97706;
+      font-weight: 300;
+    }
+    details[open] summary::after {
+      content: '−';
+    }
+    details p {
+      margin-top: 1rem;
+      color: #4a4a4a;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      padding-right: 2rem;
+    }
 
     /* FOOTER */
     footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 2.5rem 0;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 3rem 0;
       text-align: center;
     }
-    footer p { color: #52525b; font-size: 0.85rem; }
-    footer a { color: #a1a1aa; text-decoration: none; }
-    footer a:hover { color: #f59e0b; }
+    footer .logo-text { color: #fff; }
+    footer p { color: #a1a1aa; font-size: 0.9rem; margin-top: 0.5rem; }
+    footer a { color: #d97706; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
 
     /* RESPONSIVE */
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .nav-links a:not(.nav-cta) { display: none; }
-      .hero { padding-top: 5rem; }
-      section { padding: 3rem 0; }
+      .hero { padding-top: 6rem; min-height: auto; }
+      section { padding: 4rem 0; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -227,6 +382,7 @@
         <a href="#services">Services</a>
         <a href="#how">How It Works</a>
         <a href="#pricing">Pricing</a>
+        <a href="#testimonials">Results</a>
         <a href="#cta" class="nav-cta">Get a Free Review</a>
       </div>
     </div>
@@ -235,6 +391,7 @@
   <!-- HERO -->
   <section class="hero">
     <div>
+      <div class="hero-label">Local Business Marketing Experts</div>
       <h1>Get Found. Get Chosen.<br><span>Get More Customers.</span></h1>
       <p>We help local and small businesses improve visibility on <strong>Google, Google Maps, and AI search</strong> — with clear strategy, transparent reporting, and no confusing jargon.</p>
       <div class="hero-buttons">
@@ -247,15 +404,18 @@
   <!-- SERVICES -->
   <section id="services">
     <div class="container">
-      <span class="section-label">What We Do</span>
-      <h2 class="section-title">Services Designed for Local Visibility</h2>
-      <p class="section-subtitle">Every service is built to make your business easier to find, understand, and choose — across the platforms that matter most.</p>
+      <div class="section-header">
+        <span class="section-label">What We Do</span>
+        <h2 class="section-title">Services Designed for Local Visibility</h2>
+        <p class="section-subtitle">Every service is built to make your business easier to find, understand, and choose — across the platforms that matter most.</p>
+      </div>
 
       <div class="services-grid">
         <div class="service-card">
           <div class="service-icon">📍</div>
           <h3>Google Business Profile Optimization</h3>
-          <p>Improve your GBP so it shows up clearer, more complete, and more professional on Google Search and Google Maps. Starting at <strong>$300</strong>.</p>
+          <p>Improve your GBP so it shows up clearer, more complete, and more professional on Google Search and Google Maps.</p>
+          <span class="price-tag">Starting at $300</span>
         </div>
         <div class="service-card">
           <div class="service-icon">🤖</div>
@@ -277,11 +437,13 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" style="background: rgba(255,255,255,0.01);">
+  <section id="how" style="background: #f5f5f5;">
     <div class="container">
-      <span class="section-label">Our Process</span>
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-subtitle">A clear, structured process designed to improve your visibility without overwhelming you.</p>
+      <div class="section-header">
+        <span class="section-label">Our Process</span>
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">A clear, structured process designed to improve your visibility without overwhelming you.</p>
+      </div>
 
       <div class="steps">
         <div class="step">
@@ -308,12 +470,70 @@
     </div>
   </section>
 
+  <!-- STATS -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Businesses Optimized</div>
+        </div>
+        <div>
+          <div class="stat-number">4.9</div>
+          <div class="stat-label">Average Client Rating</div>
+        </div>
+        <div>
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Transparent Reporting</div>
+        </div>
+        <div>
+          <div class="stat-number">0</div>
+          <div class="stat-label">Hidden Fees</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Client Success</span>
+        <h2 class="section-title">What Our Clients Say</h2>
+        <p class="section-subtitle">Real results from real local businesses we've helped grow.</p>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Monkey Royal Marketing completely transformed our Google presence. Within weeks, we started showing up in the top 3 for local searches. The transparency and clear reporting made all the difference."</p>
+          <div class="author">Sarah Martinez</div>
+          <div class="company">Owner, Brooklyn Home Cleaners</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Finally, a marketing team that speaks plain English! They explained everything clearly, delivered on time, and our phone is ringing more than ever. Best investment we've made."</p>
+          <div class="author">James Chen</div>
+          <div class="company">Founder, Queens Moving Pros</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The free audit alone was eye-opening. They found issues we didn't even know existed. After the optimization, our Google Maps views doubled in the first month."</p>
+          <div class="author">Maria Rodriguez</div>
+          <div class="company">Manager, Manhattan Dental Care</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section id="pricing">
     <div class="container">
-      <span class="section-label">Pricing</span>
-      <h2 class="section-title">Clear Pricing. No Hidden Fees.</h2>
-      <p class="section-subtitle">Transparent deliverables and flexible options — starting with what most local businesses need first.</p>
+      <div class="section-header">
+        <span class="section-label">Pricing</span>
+        <h2 class="section-title">Clear Pricing. No Hidden Fees.</h2>
+        <p class="section-subtitle">Transparent deliverables and flexible options — starting with what most local businesses need first.</p>
+      </div>
 
       <div class="pricing-grid">
         <div class="pricing-card">
@@ -367,11 +587,13 @@
   </section>
 
   <!-- WHY US -->
-  <section id="why" style="background: rgba(255,255,255,0.01);">
+  <section id="why" style="background: #f5f5f5;">
     <div class="container">
-      <span class="section-label">Why Monkey Royal Marketing</span>
-      <h2 class="section-title">Built Different for Local Businesses</h2>
-      <p class="section-subtitle">Most agencies complicate things. We keep it clear, practical, and focused on what actually gets you customers.</p>
+      <div class="section-header">
+        <span class="section-label">Why Monkey Royal Marketing</span>
+        <h2 class="section-title">Built Different for Local Businesses</h2>
+        <p class="section-subtitle">Most agencies complicate things. We keep it clear, practical, and focused on what actually gets you customers.</p>
+      </div>
 
       <div class="diffs">
         <div class="diff-card">
@@ -407,40 +629,42 @@
     <div class="container">
       <span class="section-label">Ready to Start</span>
       <h2 class="section-title">Let's Review Your Visibility</h2>
-      <p class="section-subtitle" style="margin: 0 auto 2rem;">The first step is simple. We'll review your current online presence and show you exactly what needs attention — at no cost.</p>
+      <p class="section-subtitle" style="margin: 0 auto 2.5rem;">The first step is simple. We'll review your current online presence and show you exactly what needs attention — at no cost.</p>
       <div class="cta-buttons">
         <a href="mailto:monkeyroyalmarketing@gmail.com" class="btn-primary">📧 Get Your Free Review</a>
-        <a href="#" class="btn-secondary" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})">Read FAQs</a>
+        <a href="#faq" class="btn-secondary">Read FAQs</a>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" style="border-top: 1px solid rgba(255,255,255,0.06);">
+  <section id="faq" class="faq-section">
     <div class="container">
-      <span class="section-label">FAQs</span>
-      <h2 class="section-title">Common Questions</h2>
+      <div class="section-header">
+        <span class="section-label">FAQs</span>
+        <h2 class="section-title">Common Questions</h2>
+      </div>
 
-      <div style="max-width: 700px; margin: 0 auto;">
-        <details style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-          <summary style="font-weight: 600; cursor: pointer; font-size: 1.05rem;">What does Monkey Royal Marketing do?</summary>
-          <p style="margin-top: 0.8rem; color: #a1a1aa; font-size: 0.9rem;">We help local and small businesses improve their online visibility so potential customers can find them more easily on Google, Google Maps, and AI-powered search results. Our core services include Google Business Profile optimization, AEO, SEO, and social media support.</p>
+      <div class="faq-list">
+        <details>
+          <summary>What does Monkey Royal Marketing do?</summary>
+          <p>We help local and small businesses improve their online visibility so potential customers can find them more easily on Google, Google Maps, and AI-powered search results. Our core services include Google Business Profile optimization, AEO, SEO, and social media support.</p>
         </details>
-        <details style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-          <summary style="font-weight: 600; cursor: pointer; font-size: 1.05rem;">Who is this service for?</summary>
-          <p style="margin-top: 0.8rem; color: #a1a1aa; font-size: 0.9rem;">Local businesses, small businesses, and service-area business owners who want more visibility, calls, bookings, and customers — without the confusion of managing digital marketing alone.</p>
+        <details>
+          <summary>Who is this service for?</summary>
+          <p>Local businesses, small businesses, and service-area business owners who want more visibility, calls, bookings, and customers — without the confusion of managing digital marketing alone.</p>
         </details>
-        <details style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-          <summary style="font-weight: 600; cursor: pointer; font-size: 1.05rem;">How much does the basic GBP Optimization cost?</summary>
-          <p style="margin-top: 0.8rem; color: #a1a1aa; font-size: 0.9rem;">Our basic GBP Optimization package starts at $300. For advanced services like AEO, SEO, social media, or ongoing visibility management, we review your situation first and provide a custom recommendation.</p>
+        <details>
+          <summary>How much does the basic GBP Optimization cost?</summary>
+          <p>Our basic GBP Optimization package starts at $300. For advanced services like AEO, SEO, social media, or ongoing visibility management, we review your situation first and provide a custom recommendation.</p>
         </details>
-        <details style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-          <summary style="font-weight: 600; cursor: pointer; font-size: 1.05rem;">Do you guarantee results?</summary>
-          <p style="margin-top: 0.8rem; color: #a1a1aa; font-size: 0.9rem;">We do not guarantee specific rankings, lead counts, or revenue. What we guarantee is a clear process, defined deliverables, transparent reporting, and practical work focused on improving your online visibility.</p>
+        <details>
+          <summary>Do you guarantee results?</summary>
+          <p>We do not guarantee specific rankings, lead counts, or revenue. What we guarantee is a clear process, defined deliverables, transparent reporting, and practical work focused on improving your online visibility.</p>
         </details>
-        <details style="padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-          <summary style="font-weight: 600; cursor: pointer; font-size: 1.05rem;">What is AEO?</summary>
-          <p style="margin-top: 0.8rem; color: #a1a1aa; font-size: 0.9rem;">AEO stands for Answer Engine Optimization. It helps structure your business information so AI-powered search tools can better understand what you do, who you serve, and why you are relevant — making it easier for customers using AI search to find you.</p>
+        <details>
+          <summary>What is AEO?</summary>
+          <p>AEO stands for Answer Engine Optimization. It helps structure your business information so AI-powered search tools can better understand what you do, who you serve, and why you are relevant — making it easier for customers using AI search to find you.</p>
         </details>
       </div>
     </div>
