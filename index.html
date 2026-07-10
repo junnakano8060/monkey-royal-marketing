@@ -89,8 +89,7 @@
     /* HERO */
     .hero {
       min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center;
+      display: flex; align-items: center;
       padding: 8rem 2rem 4rem;
       position: relative;
       overflow: hidden;
@@ -113,7 +112,7 @@
       mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 70%);
       -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 70%);
     }
-    .hero-content { position: relative; z-index: 2; }
+    .hero-content { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
     .hero-label {
       display: inline-block;
       background: rgba(245,158,11,0.1);
@@ -134,9 +133,9 @@
       to { box-shadow: 0 0 40px rgba(245,158,11,0.3); }
     }
     .hero h1 {
-      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
       background: linear-gradient(135deg, #fff 0%, #e4e4e7 50%, var(--primary) 100%);
@@ -145,13 +144,13 @@
       background-clip: text;
     }
     .hero p {
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
       color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 2.5rem;
+      max-width: 500px;
+      margin-bottom: 2rem;
       line-height: 1.7;
     }
-    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--dark); padding: 1rem 2.5rem;
@@ -176,6 +175,44 @@
       backdrop-filter: blur(10px);
     }
     .btn-secondary:hover { border-color: var(--primary); background: rgba(245,158,11,0.05); }
+
+    /* HERO IMAGE */
+    .hero-image-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(245,158,11,0.1);
+      border: 1px solid var(--border);
+    }
+    .hero-image-wrap::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, var(--dark) 100%);
+      z-index: 1; pointer-events: none;
+    }
+    .hero-image-wrap img {
+      width: 100%; height: 500px; object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .hero-image-wrap:hover img { transform: scale(1.03); }
+    .hero-image-badge {
+      position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      z-index: 2;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-image-badge .badge-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .hero-image-badge .badge-text { font-size: 0.9rem; }
+    .hero-image-badge .badge-text strong { color: #fff; display: block; }
+    .hero-image-badge .badge-text span { color: var(--text-muted); font-size: 0.8rem; }
 
     /* SECTIONS */
     section { padding: 7rem 0; position: relative; }
@@ -367,6 +404,13 @@
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+    .testimonial-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: var(--dark); font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
 
     /* PRICING */
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
@@ -440,6 +484,36 @@
     }
     .diff-card h4 { font-weight: 700; margin-bottom: 0.5rem; color: #fff; font-size: 1.1rem; }
     .diff-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+    /* IMAGE SECTION */
+    .image-showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .showcase-img {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+    .showcase-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .showcase-img:hover img { transform: scale(1.05); }
+    .showcase-img::after {
+      content: attr(data-label);
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(10,10,15,0.9));
+      padding: 2rem 1rem 1rem;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .showcase-img.wide { grid-column: span 2; }
 
     /* CTA */
     .cta-section {
@@ -601,9 +675,15 @@
     @media (max-width: 768px) {
       .nav-links a:not(.nav-cta) { display: none; }
       .hero { padding-top: 6rem; min-height: auto; }
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-image-wrap { display: none; }
+      .hero p { margin: 0 auto 2rem; }
+      .hero-buttons { justify-content: center; }
       section { padding: 4rem 0; }
       .testimonial-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
+      .image-showcase { grid-template-columns: 1fr; }
+      .showcase-img.wide { grid-column: span 1; }
       .chat-window { width: calc(100vw - 32px); right: -12px; }
     }
   </style>
@@ -635,12 +715,24 @@
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
     <div class="hero-content">
-      <div class="hero-label">Local Business Marketing Experts</div>
-      <h1>Get Found. Get Chosen.<br><span style="color: var(--primary);">Get More Customers.</span></h1>
-      <p>We help local and small businesses improve visibility on <strong style="color: #fff;">Google, Google Maps, and AI search</strong> — with clear strategy, transparent reporting, and no confusing jargon.</p>
-      <div class="hero-buttons">
-        <a href="#cta" class="btn-primary">Get a Free Visibility Review →</a>
-        <a href="#services" class="btn-secondary">See Our Services</a>
+      <div>
+        <div class="hero-label">Local Business Marketing Experts</div>
+        <h1>Get Found. Get Chosen.<br><span style="color: var(--primary);">Get More Customers.</span></h1>
+        <p>We help local and small businesses improve visibility on <strong style="color: #fff;">Google, Google Maps, and AI search</strong> — with clear strategy, transparent reporting, and no confusing jargon.</p>
+        <div class="hero-buttons">
+          <a href="#cta" class="btn-primary">Get a Free Visibility Review →</a>
+          <a href="#services" class="btn-secondary">See Our Services</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Modern local business office workspace" loading="lazy">
+        <div class="hero-image-badge">
+          <div class="badge-avatar">🐒</div>
+          <div class="badge-text">
+            <strong>Trusted by 50+ Local Businesses</strong>
+            <span>From home services to healthcare</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -675,6 +767,22 @@
           <div class="service-icon">📱</div>
           <h3>Social Media Marketing</h3>
           <p>Build a stronger social presence that supports trust, brand awareness, and real customer acquisition — not just likes.</p>
+        </div>
+      </div>
+
+      <!-- Business Environment Images -->
+      <div class="image-showcase">
+        <div class="showcase-img wide reveal" data-label="Small Business Team at Work">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Small business team working together in modern office" loading="lazy">
+        </div>
+        <div class="showcase-img reveal" data-label="Local Shop Owner">
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=80" alt="Local business owner at their shop" loading="lazy">
+        </div>
+        <div class="showcase-img reveal" data-label="Customer Service">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" alt="Business owner helping customer" loading="lazy">
+        </div>
+        <div class="showcase-img wide reveal" data-label="Growing Your Business">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Business growth analytics dashboard" loading="lazy">
         </div>
       </div>
     </div>
@@ -749,18 +857,21 @@
 
       <div class="testimonial-grid">
         <div class="testimonial-card reveal">
+          <div class="testimonial-avatar">SM</div>
           <div class="stars">★★★★★</div>
           <p>"Monkey Royal Marketing completely transformed our Google presence. Within weeks, we started showing up in the top 3 for local searches. The transparency and clear reporting made all the difference."</p>
           <div class="author">Sarah Martinez</div>
           <div class="company">Owner, Brooklyn Home Cleaners</div>
         </div>
         <div class="testimonial-card reveal">
+          <div class="testimonial-avatar">JC</div>
           <div class="stars">★★★★★</div>
           <p>"Finally, a marketing team that speaks plain English! They explained everything clearly, delivered on time, and our phone is ringing more than ever. Best investment we've made."</p>
           <div class="author">James Chen</div>
           <div class="company">Founder, Queens Moving Pros</div>
         </div>
         <div class="testimonial-card reveal">
+          <div class="testimonial-avatar">MR</div>
           <div class="stars">★★★★★</div>
           <p>"The free audit alone was eye-opening. They found issues we didn't even know existed. After the optimization, our Google Maps views doubled in the first month."</p>
           <div class="author">Maria Rodriguez</div>
