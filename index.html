@@ -9,25 +9,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     
     :root {
-      --primary: #f59e0b;
-      --primary-dark: #d97706;
-      --dark: #0a0a0f;
-      --darker: #050508;
-      --card: rgba(255,255,255,0.03);
-      --text: #e4e4e7;
-      --text-muted: #a1a1aa;
-      --border: rgba(255,255,255,0.06);
+      --primary: #f5c842;
+      --primary-dark: #c9a020;
+      --bg: #ffffff;
+      --bg-warm: #faf9f6;
+      --bg-alt: #f5f5f0;
+      --text: #1a1a2e;
+      --text-muted: #6b6b7b;
+      --border: rgba(0,0,0,0.08);
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--dark);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
@@ -35,43 +35,37 @@
     
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
-    /* PARTICLES */
-    #particles {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 1;
+    /* FLOATING SHAPES */
+    .shape {
+      position: fixed; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(245,200,66,0.08), rgba(139,92,246,0.05));
+      pointer-events: none; z-index: 0;
+      animation: drift 20s infinite ease-in-out;
     }
-    .particle {
-      position: absolute; border-radius: 50%;
-      background: var(--primary);
-      opacity: 0.3;
-      animation: float 15s infinite ease-in-out;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-      25% { transform: translateY(-30px) translateX(10px); opacity: 0.6; }
-      50% { transform: translateY(20px) translateX(-20px); opacity: 0.2; }
-      75% { transform: translateY(-10px) translateX(15px); opacity: 0.5; }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(30px, -20px); }
+      50% { transform: translate(-20px, 30px); }
+      75% { transform: translate(20px, 20px); }
     }
 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      background: rgba(10,10,15,0.7);
+      background: rgba(255,255,255,0.85);
       backdrop-filter: blur(20px) saturate(180%);
       border-bottom: 1px solid var(--border);
       z-index: 100;
-      padding: 1rem 0;
+      padding: 0.8rem 0;
       transition: all 0.3s;
     }
-    nav.scrolled { padding: 0.7rem 0; background: rgba(10,10,15,0.9); }
+    nav.scrolled { padding: 0.5rem 0; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
     nav .container { display: flex; align-items: center; justify-content: space-between; }
-    .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
-    .logo-icon { font-size: 1.6rem; filter: drop-shadow(0 0 10px rgba(245,158,11,0.5)); }
-    .logo-text { font-weight: 800; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
-    .logo-text span { color: var(--primary); }
+    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo img { height: 52px; width: auto; }
     .nav-links { display: flex; gap: 2.5rem; align-items: center; }
     .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: all 0.3s; position: relative; }
-    .nav-links a:hover { color: var(--primary); }
+    .nav-links a:hover { color: var(--primary-dark); }
     .nav-links a::after {
       content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
       background: var(--primary); transition: width 0.3s; border-radius: 2px;
@@ -79,12 +73,12 @@
     .nav-links a:hover::after { width: 100%; }
     .nav-cta {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--dark); padding: 0.6rem 1.4rem;
+      color: var(--text); padding: 0.6rem 1.4rem;
       border-radius: 8px; font-weight: 700; font-size: 0.85rem;
       transition: all 0.3s; text-decoration: none;
-      box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+      box-shadow: 0 4px 20px rgba(245,200,66,0.3);
     }
-    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(245,158,11,0.5); }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(245,200,66,0.5); }
 
     /* HERO */
     .hero {
@@ -93,31 +87,21 @@
       padding: 8rem 2rem 4rem;
       position: relative;
       overflow: hidden;
+      background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 100%);
     }
     .hero-bg {
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,158,11,0.15) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(245,158,11,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 20% 60%, rgba(217,119,6,0.05) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,200,66,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 60%);
       z-index: 0;
-    }
-    .hero-grid {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background-image: 
-        linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      z-index: 0;
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 70%);
     }
     .hero-content { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
     .hero-label {
       display: inline-block;
-      background: rgba(245,158,11,0.1);
-      border: 1px solid rgba(245,158,11,0.2);
-      color: var(--primary);
+      background: rgba(245,200,66,0.12);
+      border: 1px solid rgba(245,200,66,0.25);
+      color: var(--primary-dark);
       padding: 0.5rem 1.2rem;
       border-radius: 50px;
       font-size: 0.8rem;
@@ -125,12 +109,6 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 2rem;
-      backdrop-filter: blur(10px);
-      animation: glow 3s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      from { box-shadow: 0 0 20px rgba(245,158,11,0.1); }
-      to { box-shadow: 0 0 40px rgba(245,158,11,0.3); }
     }
     .hero h1 {
       font-size: clamp(2.5rem, 5vw, 4rem);
@@ -138,11 +116,9 @@
       line-height: 1.1;
       letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, #fff 0%, #e4e4e7 50%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
     }
+    .hero h1 span { color: var(--primary-dark); }
     .hero p {
       font-size: clamp(1rem, 1.5vw, 1.2rem);
       color: var(--text-muted);
@@ -153,41 +129,27 @@
     .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--dark); padding: 1rem 2.5rem;
+      color: var(--text); padding: 1rem 2.5rem;
       border-radius: 12px; font-weight: 800; font-size: 1rem;
       text-decoration: none; transition: all 0.3s;
       display: inline-flex; align-items: center; gap: 0.5rem;
-      box-shadow: 0 4px 30px rgba(245,158,11,0.4);
-      position: relative; overflow: hidden;
+      box-shadow: 0 4px 30px rgba(245,200,66,0.35);
     }
-    .btn-primary::before {
-      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: left 0.5s;
-    }
-    .btn-primary:hover::before { left: 100%; }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(245,158,11,0.6); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(245,200,66,0.5); }
     .btn-secondary {
-      background: rgba(255,255,255,0.05); color: #fff; padding: 1rem 2.5rem;
+      background: rgba(0,0,0,0.03); color: var(--text); padding: 1rem 2.5rem;
       border-radius: 12px; font-weight: 600; font-size: 1rem;
       text-decoration: none; border: 1px solid var(--border);
       transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem;
-      backdrop-filter: blur(10px);
     }
-    .btn-secondary:hover { border-color: var(--primary); background: rgba(245,158,11,0.05); }
+    .btn-secondary:hover { border-color: var(--primary); background: rgba(245,200,66,0.05); }
 
-    /* HERO IMAGE */
     .hero-image-wrap {
       position: relative;
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(245,158,11,0.1);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.1);
       border: 1px solid var(--border);
-    }
-    .hero-image-wrap::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 60%, var(--dark) 100%);
-      z-index: 1; pointer-events: none;
     }
     .hero-image-wrap img {
       width: 100%; height: 500px; object-fit: cover;
@@ -196,13 +158,14 @@
     .hero-image-wrap:hover img { transform: scale(1.03); }
     .hero-image-badge {
       position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
-      background: rgba(10,10,15,0.8);
+      background: rgba(255,255,255,0.9);
       backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 1.2rem 1.5rem;
       z-index: 2;
       display: flex; align-items: center; gap: 1rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
     }
     .hero-image-badge .badge-avatar {
       width: 48px; height: 48px; border-radius: 50%;
@@ -211,20 +174,17 @@
       font-size: 1.5rem; flex-shrink: 0;
     }
     .hero-image-badge .badge-text { font-size: 0.9rem; }
-    .hero-image-badge .badge-text strong { color: #fff; display: block; }
+    .hero-image-badge .badge-text strong { color: var(--text); display: block; }
     .hero-image-badge .badge-text span { color: var(--text-muted); font-size: 0.8rem; }
 
     /* SECTIONS */
     section { padding: 7rem 0; position: relative; }
-    .section-header {
-      text-align: center;
-      margin-bottom: 5rem;
-    }
+    .section-header { text-align: center; margin-bottom: 5rem; }
     .section-label {
       display: inline-block;
-      background: rgba(245,158,11,0.1);
-      border: 1px solid rgba(245,158,11,0.2);
-      color: var(--primary);
+      background: rgba(245,200,66,0.12);
+      border: 1px solid rgba(245,200,66,0.25);
+      color: var(--primary-dark);
       padding: 0.4rem 1rem;
       border-radius: 50px;
       font-size: 0.8rem;
@@ -238,10 +198,7 @@
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 1.2rem;
-      background: linear-gradient(135deg, #fff 0%, #e4e4e7 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
     }
     .section-subtitle {
       color: var(--text-muted);
@@ -258,13 +215,14 @@
       gap: 1.5rem; 
     }
     .service-card {
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 2.5rem;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      box-shadow: var(--card-shadow);
     }
     .service-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -273,42 +231,74 @@
     }
     .service-card:hover::before { opacity: 1; }
     .service-card:hover { 
-      border-color: rgba(245,158,11,0.2); 
+      border-color: rgba(245,200,66,0.3); 
       transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(245,158,11,0.05);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.1), 0 0 40px rgba(245,200,66,0.08);
     }
     .service-icon { 
       font-size: 2.5rem; 
       margin-bottom: 1.5rem;
       display: inline-block;
-      background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.1));
+      background: linear-gradient(135deg, rgba(245,200,66,0.15), rgba(201,160,32,0.1));
       padding: 1.2rem;
       border-radius: 16px;
-      border: 1px solid rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,200,66,0.15);
     }
-    .service-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: #fff; }
+    .service-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text); }
     .service-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
     .service-card .price-tag {
       display: inline-block;
       margin-top: 1.2rem;
-      color: var(--primary);
+      color: var(--primary-dark);
       font-weight: 700;
       font-size: 0.9rem;
-      background: rgba(245,158,11,0.1);
+      background: rgba(245,200,66,0.1);
       padding: 0.3rem 0.8rem;
       border-radius: 8px;
     }
+
+    /* IMAGE SHOWCASE */
+    .image-showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .showcase-img {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+      aspect-ratio: 4/3;
+      box-shadow: var(--card-shadow);
+    }
+    .showcase-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .showcase-img:hover img { transform: scale(1.05); }
+    .showcase-img::after {
+      content: attr(data-label);
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(26,26,46,0.85));
+      padding: 2rem 1rem 1rem;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .showcase-img.wide { grid-column: span 2; }
 
     /* HOW IT WORKS */
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
     .step { 
       text-align: center; 
       padding: 2.5rem;
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 20px;
       transition: all 0.4s;
       position: relative;
+      box-shadow: var(--card-shadow);
     }
     .step::after {
       content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 2px;
@@ -316,21 +306,21 @@
       transform: scaleX(0); transition: transform 0.4s;
     }
     .step:hover::after { transform: scaleX(1); }
-    .step:hover { border-color: rgba(245,158,11,0.2); }
+    .step:hover { border-color: rgba(245,200,66,0.3); }
     .step-num {
       display: inline-flex; align-items: center; justify-content: center;
       width: 64px; height: 64px; border-radius: 16px;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--dark);
+      color: var(--text);
       font-weight: 900; font-size: 1.4rem; margin-bottom: 1.5rem;
-      box-shadow: 0 8px 30px rgba(245,158,11,0.3);
+      box-shadow: 0 8px 30px rgba(245,200,66,0.3);
     }
-    .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; color: #fff; }
+    .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--text); }
     .step p { color: var(--text-muted); font-size: 0.9rem; max-width: 280px; margin: 0 auto; line-height: 1.6; }
 
     /* STATS */
     .stats {
-      background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 50%, var(--dark) 100%);
+      background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg-warm) 50%, var(--bg-alt) 100%);
       position: relative;
     }
     .stats::before {
@@ -346,7 +336,7 @@
     .stat-number {
       font-size: 3.5rem;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      background: linear-gradient(135deg, var(--primary-dark), #8b5cf6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -359,63 +349,57 @@
     }
 
     /* TESTIMONIALS */
-    .testimonials { background: linear-gradient(180deg, var(--dark), var(--darker)); }
+    .testimonials { background: linear-gradient(180deg, var(--bg-warm), var(--bg-alt)); }
     .testimonial-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 2rem;
     }
     .testimonial-card {
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 2.5rem;
       transition: all 0.4s;
       position: relative;
+      box-shadow: var(--card-shadow);
     }
     .testimonial-card::before {
       content: '"'; position: absolute; top: 1.5rem; right: 2rem;
-      font-size: 4rem; color: rgba(245,158,11,0.1); font-weight: 900; line-height: 1;
+      font-size: 4rem; color: rgba(245,200,66,0.15); font-weight: 900; line-height: 1;
     }
     .testimonial-card:hover {
-      border-color: rgba(245,158,11,0.2);
+      border-color: rgba(245,200,66,0.3);
       transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
     .testimonial-card .stars {
-      color: var(--primary);
+      color: var(--primary-dark);
       font-size: 1.1rem;
       margin-bottom: 1.2rem;
       letter-spacing: 0.1em;
     }
     .testimonial-card p {
-      color: var(--text);
+      color: var(--text-muted);
       font-size: 1rem;
       line-height: 1.8;
       margin-bottom: 1.5rem;
       font-style: italic;
     }
-    .testimonial-card .author {
-      font-weight: 700;
-      color: #fff;
-      font-size: 0.95rem;
-    }
-    .testimonial-card .company {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
+    .testimonial-card .author { font-weight: 700; color: var(--text); font-size: 0.95rem; }
+    .testimonial-card .company { color: var(--text-muted); font-size: 0.85rem; }
     .testimonial-avatar {
       width: 52px; height: 52px; border-radius: 50%;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; color: var(--dark); font-size: 1.1rem;
+      font-weight: 800; color: var(--text); font-size: 1.1rem;
       margin-bottom: 1rem;
     }
 
     /* PRICING */
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
     .pricing-card {
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 3rem 2rem;
@@ -423,25 +407,26 @@
       transition: all 0.4s;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--card-shadow);
     }
     .pricing-card.featured {
-      border-color: rgba(245,158,11,0.3);
-      background: linear-gradient(180deg, rgba(245,158,11,0.05), var(--card));
+      border-color: rgba(245,200,66,0.3);
+      background: linear-gradient(180deg, rgba(245,200,66,0.05), var(--bg));
       transform: scale(1.02);
     }
     .pricing-card.featured::before {
       content: 'Most Popular';
       position: absolute; top: 0; left: 0; right: 0;
       background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-      color: var(--dark);
+      color: var(--text);
       padding: 0.5rem; font-size: 0.75rem;
       font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.1em;
     }
-    .pricing-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    .pricing-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
     .pricing-card .price { 
       font-size: 3.5rem; font-weight: 900; 
-      background: linear-gradient(135deg, #fff, var(--primary));
+      background: linear-gradient(135deg, var(--text), var(--primary-dark));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -450,88 +435,57 @@
     .pricing-card .price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
     .pricing-card .desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; }
     .pricing-card ul { list-style: none; text-align: left; margin-bottom: 2rem; }
-    .pricing-card ul li { padding: 0.5rem 0; font-size: 0.9rem; color: var(--text); }
-    .pricing-card ul li::before { content: '✓ '; color: var(--primary); font-weight: 700; }
+    .pricing-card ul li { padding: 0.5rem 0; font-size: 0.9rem; color: var(--text-muted); }
+    .pricing-card ul li::before { content: '✓ '; color: var(--primary-dark); font-weight: 700; }
     .pricing-card:hover {
-      border-color: rgba(245,158,11,0.2);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border-color: rgba(245,200,66,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
 
     .custom-quote {
       margin-top: 3rem;
-      background: linear-gradient(135deg, rgba(245,158,11,0.05), rgba(245,158,11,0.02));
-      border: 1px dashed rgba(245,158,11,0.2);
+      background: linear-gradient(135deg, rgba(245,200,66,0.05), rgba(245,200,66,0.02));
+      border: 1px dashed rgba(245,200,66,0.3);
       border-radius: 20px;
       padding: 3rem;
       text-align: center;
     }
-    .custom-quote h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    .custom-quote h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
     .custom-quote p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
 
     /* WHY US */
     .diffs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
     .diff-card {
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 2rem;
       transition: all 0.4s;
       position: relative;
+      box-shadow: var(--card-shadow);
     }
     .diff-card:hover {
-      border-color: rgba(245,158,11,0.2);
+      border-color: rgba(245,200,66,0.3);
       transform: translateY(-4px);
     }
-    .diff-card h4 { font-weight: 700; margin-bottom: 0.5rem; color: #fff; font-size: 1.1rem; }
+    .diff-card h4 { font-weight: 700; margin-bottom: 0.5rem; color: var(--text); font-size: 1.1rem; }
     .diff-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
-
-    /* IMAGE SECTION */
-    .image-showcase {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-    .showcase-img {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      position: relative;
-      aspect-ratio: 4/3;
-    }
-    .showcase-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s;
-    }
-    .showcase-img:hover img { transform: scale(1.05); }
-    .showcase-img::after {
-      content: attr(data-label);
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(10,10,15,0.9));
-      padding: 2rem 1rem 1rem;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    .showcase-img.wide { grid-column: span 2; }
 
     /* CTA */
     .cta-section {
       text-align: center;
       position: relative;
       overflow: hidden;
+      background: linear-gradient(180deg, var(--bg), var(--bg-warm));
     }
     .cta-section::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245,158,11,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245,200,66,0.1) 0%, transparent 70%);
     }
     .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
 
     /* FAQ */
-    .faq-list {
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    .faq-list { max-width: 800px; margin: 0 auto; }
     details {
       padding: 1.5rem 0;
       border-bottom: 1px solid var(--border);
@@ -541,18 +495,18 @@
       font-weight: 600;
       cursor: pointer;
       font-size: 1.1rem;
-      color: #fff;
+      color: var(--text);
       list-style: none;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: color 0.3s;
     }
-    summary:hover { color: var(--primary); }
+    summary:hover { color: var(--primary-dark); }
     summary::after {
       content: '+';
       font-size: 1.8rem;
-      color: var(--primary);
+      color: var(--primary-dark);
       font-weight: 300;
       transition: transform 0.3s;
     }
@@ -570,8 +524,8 @@
 
     /* FOOTER */
     footer {
-      background: var(--darker);
-      color: #fff;
+      background: var(--bg-alt);
+      color: var(--text);
       padding: 4rem 0;
       text-align: center;
       position: relative;
@@ -581,22 +535,23 @@
       background: linear-gradient(90deg, transparent, var(--primary), transparent);
     }
     footer p { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
-    footer a { color: var(--primary); text-decoration: none; }
+    footer a { color: var(--primary-dark); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
+    footer img { height: 60px; width: auto; margin-bottom: 1rem; }
 
     /* CHAT WIDGET */
     .chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 1000; font-family: 'Inter', sans-serif; }
     .chat-toggle {
       width: 60px; height: 60px; border-radius: 50%;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--dark); display: flex; align-items: center; justify-content: center;
+      color: var(--text); display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem; cursor: pointer;
-      box-shadow: 0 4px 30px rgba(245,158,11,0.5);
+      box-shadow: 0 4px 30px rgba(245,200,66,0.4);
       transition: all 0.3s; animation: pulse 2s infinite;
     }
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 4px 30px rgba(245,158,11,0.5); }
-      50% { box-shadow: 0 4px 40px rgba(245,158,11,0.8); }
+      0%, 100% { box-shadow: 0 4px 30px rgba(245,200,66,0.4); }
+      50% { box-shadow: 0 4px 40px rgba(245,200,66,0.6); }
     }
     .chat-toggle:hover { transform: scale(1.1); }
     .chat-window {
@@ -605,15 +560,15 @@
       width: 380px; height: 520px;
       background: linear-gradient(180deg, #1a1a2e, #0a0a0f);
       border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
       border: 1px solid var(--border);
       overflow: hidden;
     }
     .chat-window.active { display: flex; }
     .chat-header {
-      background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.1));
+      background: linear-gradient(135deg, rgba(245,200,66,0.2), rgba(201,160,32,0.1));
       color: #fff; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     .chat-avatar { font-size: 1.5rem; }
     .chat-status { font-size: 0.75rem; color: var(--primary); }
@@ -628,35 +583,35 @@
       max-width: 85%; padding: 0.75rem 1rem;
       border-radius: 14px; font-size: 0.9rem; line-height: 1.5;
     }
-    .msg.bot .msg-bubble { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); }
-    .msg.user .msg-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--dark); }
+    .msg.bot .msg-bubble { background: rgba(255,255,255,0.05); color: #e4e4e7; border: 1px solid rgba(255,255,255,0.1); }
+    .msg.user .msg-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--text); }
     .chat-input-area {
       display: flex; padding: 0.75rem; gap: 0.5rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.02);
     }
     .chat-input-area input {
-      flex: 1; padding: 0.6rem 1rem; border: 1px solid var(--border);
+      flex: 1; padding: 0.6rem 1rem; border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px; font-size: 0.9rem; outline: none;
       background: rgba(255,255,255,0.05); color: #fff;
     }
     .chat-input-area input:focus { border-color: var(--primary); }
-    .chat-input-area input::placeholder { color: var(--text-muted); }
+    .chat-input-area input::placeholder { color: #888; }
     .chat-input-area button {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--dark); border: none;
+      color: var(--text); border: none;
       padding: 0.6rem 1rem; border-radius: 10px;
       font-weight: 700; cursor: pointer;
     }
     .lead-form { display: flex; flex-direction: column; gap: 0.5rem; }
     .lead-form input {
-      padding: 0.5rem; border: 1px solid var(--border);
+      padding: 0.5rem; border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px; font-size: 0.85rem;
       background: rgba(255,255,255,0.05); color: #fff;
     }
     .lead-form button {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--dark); border: none;
+      color: var(--text); border: none;
       padding: 0.6rem; border-radius: 8px;
       font-weight: 700; cursor: pointer; font-size: 0.85rem;
     }
@@ -667,10 +622,7 @@
       transform: translateY(40px);
       transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 768px) {
       .nav-links a:not(.nav-cta) { display: none; }
@@ -690,15 +642,16 @@
 </head>
 <body>
 
-  <!-- PARTICLES -->
-  <div id="particles"></div>
+  <!-- FLOATING SHAPES -->
+  <div class="shape" style="width:400px;height:400px;top:-100px;right:-100px;animation-delay:0s;"></div>
+  <div class="shape" style="width:300px;height:300px;bottom:10%;left:-80px;animation-delay:5s;"></div>
+  <div class="shape" style="width:200px;height:200px;top:40%;right:5%;animation-delay:10s;"></div>
 
   <!-- NAV -->
   <nav id="navbar">
     <div class="container">
       <a href="#" class="logo">
-        <span class="logo-icon">🐒👑</span>
-        <span class="logo-text">Monkey <span>Royal</span> Marketing</span>
+        <img src="logo.png" alt="Monkey Royal Marketing">
       </a>
       <div class="nav-links">
         <a href="#services">Services</a>
@@ -713,12 +666,11 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
     <div class="hero-content">
       <div>
         <div class="hero-label">Local Business Marketing Experts</div>
-        <h1>Get Found. Get Chosen.<br><span style="color: var(--primary);">Get More Customers.</span></h1>
-        <p>We help local and small businesses improve visibility on <strong style="color: #fff;">Google, Google Maps, and AI search</strong> — with clear strategy, transparent reporting, and no confusing jargon.</p>
+        <h1>Get Found. Get Chosen.<br><span>Get More Customers.</span></h1>
+        <p>We help local and small businesses improve visibility on <strong>Google, Google Maps, and AI search</strong> — with clear strategy, transparent reporting, and no confusing jargon.</p>
         <div class="hero-buttons">
           <a href="#cta" class="btn-primary">Get a Free Visibility Review →</a>
           <a href="#services" class="btn-secondary">See Our Services</a>
@@ -770,26 +722,25 @@
         </div>
       </div>
 
-      <!-- Business Environment Images -->
       <div class="image-showcase">
         <div class="showcase-img wide reveal" data-label="Small Business Team at Work">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Small business team working together in modern office" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Small business team working together" loading="lazy">
         </div>
         <div class="showcase-img reveal" data-label="Local Shop Owner">
-          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=80" alt="Local business owner at their shop" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=80" alt="Local business owner" loading="lazy">
         </div>
         <div class="showcase-img reveal" data-label="Customer Service">
           <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" alt="Business owner helping customer" loading="lazy">
         </div>
         <div class="showcase-img wide reveal" data-label="Growing Your Business">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Business growth analytics dashboard" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Business growth analytics" loading="lazy">
         </div>
       </div>
     </div>
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" style="background: linear-gradient(180deg, var(--dark), var(--darker));">
+  <section id="how" style="background: linear-gradient(180deg, var(--bg-warm), var(--bg-alt));">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-label">Our Process</span>
@@ -859,21 +810,21 @@
         <div class="testimonial-card reveal">
           <div class="testimonial-avatar">SM</div>
           <div class="stars">★★★★★</div>
-          <p>"Monkey Royal Marketing completely transformed our Google presence. Within weeks, we started showing up in the top 3 for local searches. The transparency and clear reporting made all the difference."</p>
+          <p>"Monkey Royal Marketing completely transformed our Google presence. Within weeks, we started showing up in the top 3 for local searches."</p>
           <div class="author">Sarah Martinez</div>
           <div class="company">Owner, Brooklyn Home Cleaners</div>
         </div>
         <div class="testimonial-card reveal">
           <div class="testimonial-avatar">JC</div>
           <div class="stars">★★★★★</div>
-          <p>"Finally, a marketing team that speaks plain English! They explained everything clearly, delivered on time, and our phone is ringing more than ever. Best investment we've made."</p>
+          <p>"Finally, a marketing team that speaks plain English! They explained everything clearly, delivered on time, and our phone is ringing more than ever."</p>
           <div class="author">James Chen</div>
           <div class="company">Founder, Queens Moving Pros</div>
         </div>
         <div class="testimonial-card reveal">
           <div class="testimonial-avatar">MR</div>
           <div class="stars">★★★★★</div>
-          <p>"The free audit alone was eye-opening. They found issues we didn't even know existed. After the optimization, our Google Maps views doubled in the first month."</p>
+          <p>"The free audit alone was eye-opening. After the optimization, our Google Maps views doubled in the first month."</p>
           <div class="author">Maria Rodriguez</div>
           <div class="company">Manager, Manhattan Dental Care</div>
         </div>
@@ -935,14 +886,14 @@
 
       <div class="custom-quote reveal">
         <h3>Need More? GBP + AEO + Social Media?</h3>
-        <p>We also offer custom packages for businesses that want a broader visibility strategy. Scope, deliverables, and pricing are reviewed based on your goals.</p>
+        <p>We also offer custom packages for businesses that want a broader visibility strategy.</p>
         <a href="#cta" class="btn-secondary">Ask for a Custom Quote</a>
       </div>
     </div>
   </section>
 
   <!-- WHY US -->
-  <section id="why" style="background: linear-gradient(180deg, var(--darker), var(--dark));">
+  <section id="why" style="background: linear-gradient(180deg, var(--bg-alt), var(--bg-warm));">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-label">Why Monkey Royal Marketing</span>
@@ -1005,23 +956,23 @@
       <div class="faq-list reveal">
         <details>
           <summary>What does Monkey Royal Marketing do?</summary>
-          <p>We help local and small businesses improve their online visibility so potential customers can find them more easily on Google, Google Maps, and AI-powered search results. Our core services include Google Business Profile optimization, AEO, SEO, and social media support.</p>
+          <p>We help local and small businesses improve their online visibility so potential customers can find them more easily on Google, Google Maps, and AI-powered search results.</p>
         </details>
         <details>
           <summary>Who is this service for?</summary>
-          <p>Local businesses, small businesses, and service-area business owners who want more visibility, calls, bookings, and customers — without the confusion of managing digital marketing alone.</p>
+          <p>Local businesses, small businesses, and service-area business owners who want more visibility, calls, bookings, and customers.</p>
         </details>
         <details>
           <summary>How much does the basic GBP Optimization cost?</summary>
-          <p>Our basic GBP Optimization package starts at $300. For advanced services like AEO, SEO, social media, or ongoing visibility management, we review your situation first and provide a custom recommendation.</p>
+          <p>Our basic GBP Optimization package starts at $300. For advanced services like AEO, SEO, or social media, we review your situation first.</p>
         </details>
         <details>
           <summary>Do you guarantee results?</summary>
-          <p>We do not guarantee specific rankings, lead counts, or revenue. What we guarantee is a clear process, defined deliverables, transparent reporting, and practical work focused on improving your online visibility.</p>
+          <p>We do not guarantee specific rankings or revenue. What we guarantee is a clear process, defined deliverables, transparent reporting, and practical work.</p>
         </details>
         <details>
           <summary>What is AEO?</summary>
-          <p>AEO stands for Answer Engine Optimization. It helps structure your business information so AI-powered search tools can better understand what you do, who you serve, and why you are relevant — making it easier for customers using AI search to find you.</p>
+          <p>AEO stands for Answer Engine Optimization. It helps structure your business information so AI-powered search tools can better understand and recommend you.</p>
         </details>
       </div>
     </div>
@@ -1030,13 +981,8 @@
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p style="margin-bottom: 0.5rem; font-size: 1.2rem;">
-        <span>🐒👑</span>
-        <strong style="color: #fff;">Monkey Royal Marketing</strong>
-      </p>
-      <p>
-        <a href="mailto:monkeyroyalmarketing@gmail.com">monkeyroyalmarketing@gmail.com</a>
-      </p>
+      <img src="logo.png" alt="Monkey Royal Marketing">
+      <p><a href="mailto:monkeyroyalmarketing@gmail.com">monkeyroyalmarketing@gmail.com</a></p>
       <p style="margin-top: 1rem;">&copy; 2025 Monkey Royal Marketing. All rights reserved.</p>
     </div>
   </footer>
@@ -1068,19 +1014,14 @@
   </div>
 
   <script>
-    // PARTICLES
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 20; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.width = Math.random() * 4 + 2 + 'px';
-      particle.style.height = particle.style.width;
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.top = Math.random() * 100 + '%';
-      particle.style.animationDelay = Math.random() * 15 + 's';
-      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-      particlesContainer.appendChild(particle);
-    }
+    // FLOATING SHAPES
+    const shapes = document.querySelectorAll('.shape');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      shapes.forEach((shape, i) => {
+        shape.style.transform = `translateY(${scrollY * (0.05 + i * 0.02)}px)`;
+      });
+    });
 
     // NAVBAR SCROLL
     window.addEventListener('scroll', () => {
@@ -1093,9 +1034,7 @@
     const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('active');
       });
     }, { threshold: 0.1 });
     revealElements.forEach(el => revealObserver.observe(el));
@@ -1130,21 +1069,21 @@
       } else if (msg.includes('gbp') || msg.includes('google business') || msg.includes('profile')) {
         reply = 'Google Business Profile Optimization is our most popular service — <strong>$300 one-time</strong>. We audit and improve your entire profile: categories, services, description, photos, reviews, and more. Want a free audit first?';
       } else if (msg.includes('seo') || msg.includes('search')) {
-        reply = 'Our SEO service strengthens your website\'s organic visibility so customers find you before competitors. We do keyword research, on-page optimization, and technical fixes. Pricing is custom based on your site. Want a quote?';
+        reply = 'Our SEO service strengthens your website\'s organic visibility so customers find you before competitors. Pricing is custom based on your site. Want a quote?';
       } else if (msg.includes('aeo') || msg.includes('ai') || msg.includes('voice')) {
-        reply = 'Answer Engine Optimization (AEO) structures your business info so AI tools like ChatGPT, Siri, and Alexa can understand and recommend you. It\'s the future of search — and we\'re ahead of it. Pricing is custom. Interested?';
+        reply = 'Answer Engine Optimization (AEO) structures your business info so AI tools like ChatGPT can understand and recommend you. Pricing is custom. Interested?';
       } else if (msg.includes('social') || msg.includes('instagram') || msg.includes('facebook')) {
-        reply = 'Our Social Media Marketing builds real trust and awareness — not just likes. We create content that supports your visibility strategy across platforms. Custom pricing based on scope. Want to discuss?';
+        reply = 'Our Social Media Marketing builds real trust and awareness — not just likes. Custom pricing based on scope. Want to discuss?';
       } else if (msg.includes('quote') || msg.includes('contact') || msg.includes('email') || msg.includes('call') || msg.includes('reach')) {
         reply = 'I\'d love to connect you with our team! Leave your name, email, and phone, and we\'ll reach out within 24 hours.<br><br>' + leadForm();
       } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey')) {
         reply = 'Hey! 👋 What can I help you with today? Ask me about our services, pricing, or how we help local businesses get found on Google.';
       } else if (msg.includes('thank')) {
-        reply = 'You\'re welcome! 🙌 Feel free to ask if you have any other questions. We\'re here to help!';
+        reply = 'You\'re welcome! 🙌 Feel free to ask if you have any other questions.';
       } else if (msg.includes('free') || msg.includes('audit')) {
-        reply = 'Yes! We offer a <strong>completely free GBP audit</strong>. We review your Google Business Profile, check your categories, compare against competitors, and give you the top 3 things to fix. Want me to set that up?';
+        reply = 'Yes! We offer a <strong>completely free GBP audit</strong>. We review your Google Business Profile and give you the top 3 things to fix. Want me to set that up?';
       } else {
-        reply = 'Great question! I want to make sure I give you the right info. Are you asking about:<br><br>• Our services (GBP, SEO, AEO, Social)<br>• Pricing and packages<br>• Getting a free audit<br>• Or something else?<br><br>Just let me know!';
+        reply = 'Great question! Are you asking about:<br><br>• Our services (GBP, SEO, AEO, Social)<br>• Pricing and packages<br>• Getting a free audit<br>• Or something else?<br><br>Just let me know!';
       }
       addMsg(reply, 'bot');
     }
