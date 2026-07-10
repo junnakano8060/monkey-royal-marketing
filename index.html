@@ -7,372 +7,614 @@
   <meta name="description" content="Monkey Royal Marketing helps local and small businesses get found on Google, Google Maps, and AI search. GBP optimization, AEO, SEO, and social media support.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #ffffff;
-      color: #1a1a1a;
-      line-height: 1.6;
+    
+    :root {
+      --primary: #f59e0b;
+      --primary-dark: #d97706;
+      --dark: #0a0a0f;
+      --darker: #050508;
+      --card: rgba(255,255,255,0.03);
+      --text: #e4e4e7;
+      --text-muted: #a1a1aa;
+      --border: rgba(255,255,255,0.06);
     }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    /* PARTICLES */
+    #particles {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.3;
+      animation: float 15s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+      25% { transform: translateY(-30px) translateX(10px); opacity: 0.6; }
+      50% { transform: translateY(20px) translateX(-20px); opacity: 0.2; }
+      75% { transform: translateY(-10px) translateX(15px); opacity: 0.5; }
+    }
 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: rgba(10,10,15,0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
       z-index: 100;
       padding: 1rem 0;
+      transition: all 0.3s;
     }
+    nav.scrolled { padding: 0.7rem 0; background: rgba(10,10,15,0.9); }
     nav .container { display: flex; align-items: center; justify-content: space-between; }
     .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
-    .logo-icon { font-size: 1.6rem; }
-    .logo-text { font-weight: 700; font-size: 1.15rem; color: #1a1a1a; letter-spacing: -0.02em; }
-    .logo-text span { color: #d97706; }
+    .logo-icon { font-size: 1.6rem; filter: drop-shadow(0 0 10px rgba(245,158,11,0.5)); }
+    .logo-text { font-weight: 800; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    .logo-text span { color: var(--primary); }
     .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-    .nav-links a { text-decoration: none; color: #4a4a4a; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: #d97706; }
-    .nav-cta {
-      background: #d97706; color: #fff; padding: 0.6rem 1.4rem;
-      border-radius: 8px; font-weight: 600; font-size: 0.85rem;
-      transition: background 0.2s; text-decoration: none;
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: all 0.3s; position: relative; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: var(--primary); transition: width 0.3s; border-radius: 2px;
     }
-    .nav-cta:hover { background: #b45309; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--dark); padding: 0.6rem 1.4rem;
+      border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+      transition: all 0.3s; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(245,158,11,0.5); }
 
     /* HERO */
     .hero {
-      min-height: 90vh;
+      min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
       text-align: center;
-      padding: 8rem 2rem 5rem;
-      background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
     }
+    .hero-bg {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,158,11,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(245,158,11,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 60%, rgba(217,119,6,0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+    .hero-grid {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 70%);
+    }
+    .hero-content { position: relative; z-index: 2; }
     .hero-label {
       display: inline-block;
-      background: rgba(217,119,6,0.1);
-      color: #d97706;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.2);
+      color: var(--primary);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
       font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(245,158,11,0.1); }
+      to { box-shadow: 0 0 40px rgba(245,158,11,0.3); }
     }
     .hero h1 {
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      font-weight: 800;
-      line-height: 1.1;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
       letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
-      color: #1a1a1a;
+      background: linear-gradient(135deg, #fff 0%, #e4e4e7 50%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .hero h1 span { color: #d97706; }
     .hero p {
       font-size: clamp(1.1rem, 2vw, 1.35rem);
-      color: #4a4a4a;
+      color: var(--text-muted);
       max-width: 700px;
       margin: 0 auto 2.5rem;
       line-height: 1.7;
     }
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn-primary {
-      background: #d97706; color: #fff; padding: 1rem 2.2rem;
-      border-radius: 10px; font-weight: 700; font-size: 1rem;
-      text-decoration: none; transition: background 0.2s;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--dark); padding: 1rem 2.5rem;
+      border-radius: 12px; font-weight: 800; font-size: 1rem;
+      text-decoration: none; transition: all 0.3s;
       display: inline-flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 4px 30px rgba(245,158,11,0.4);
+      position: relative; overflow: hidden;
     }
-    .btn-primary:hover { background: #b45309; }
+    .btn-primary::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(245,158,11,0.6); }
     .btn-secondary {
-      background: transparent; color: #1a1a1a; padding: 1rem 2.2rem;
-      border-radius: 10px; font-weight: 600; font-size: 1rem;
-      text-decoration: none; border: 2px solid #e5e5e5;
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.05); color: #fff; padding: 1rem 2.5rem;
+      border-radius: 12px; font-weight: 600; font-size: 1rem;
+      text-decoration: none; border: 1px solid var(--border);
+      transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem;
+      backdrop-filter: blur(10px);
     }
-    .btn-secondary:hover { border-color: #d97706; color: #d97706; }
+    .btn-secondary:hover { border-color: var(--primary); background: rgba(245,158,11,0.05); }
 
-    /* SECTION HEADERS */
+    /* SECTIONS */
+    section { padding: 7rem 0; position: relative; }
     .section-header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 5rem;
     }
     .section-label {
       display: inline-block;
-      background: rgba(217,119,6,0.1);
-      color: #d97706;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.2);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
       font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
     }
     .section-title {
-      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
       font-weight: 800;
       letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-      color: #1a1a1a;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #fff 0%, #e4e4e7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .section-subtitle {
-      color: #4a4a4a;
-      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-size: 1.15rem;
       max-width: 600px;
       margin: 0 auto;
       line-height: 1.7;
     }
 
     /* SERVICES */
-    section { padding: 6rem 0; }
     .services-grid { 
       display: grid; 
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-      gap: 2rem; 
+      gap: 1.5rem; 
     }
     .service-card {
-      background: #fafafa;
-      border: 1px solid #f0f0f0;
-      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
       padding: 2.5rem;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .service-card:hover::before { opacity: 1; }
     .service-card:hover { 
-      border-color: #d97706; 
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border-color: rgba(245,158,11,0.2); 
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(245,158,11,0.05);
     }
     .service-icon { 
       font-size: 2.5rem; 
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
       display: inline-block;
-      background: rgba(217,119,6,0.1);
-      padding: 1rem;
-      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.1));
+      padding: 1.2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(245,158,11,0.1);
     }
-    .service-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: #1a1a1a; }
-    .service-card p { color: #4a4a4a; font-size: 0.95rem; line-height: 1.7; }
+    .service-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: #fff; }
+    .service-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
     .service-card .price-tag {
       display: inline-block;
-      margin-top: 1rem;
-      color: #d97706;
+      margin-top: 1.2rem;
+      color: var(--primary);
       font-weight: 700;
       font-size: 0.9rem;
+      background: rgba(245,158,11,0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 8px;
     }
 
     /* HOW IT WORKS */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
     .step { 
       text-align: center; 
-      padding: 2rem;
-      background: #fafafa;
-      border-radius: 16px;
+      padding: 2.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: all 0.4s;
+      position: relative;
     }
+    .step::after {
+      content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      transform: scaleX(0); transition: transform 0.4s;
+    }
+    .step:hover::after { transform: scaleX(1); }
+    .step:hover { border-color: rgba(245,158,11,0.2); }
     .step-num {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 56px; height: 56px; border-radius: 50%;
-      background: #d97706; color: #fff;
-      font-weight: 800; font-size: 1.3rem; margin-bottom: 1.2rem;
+      width: 64px; height: 64px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--dark);
+      font-weight: 900; font-size: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: 0 8px 30px rgba(245,158,11,0.3);
     }
-    .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; color: #1a1a1a; }
-    .step p { color: #4a4a4a; font-size: 0.9rem; max-width: 280px; margin: 0 auto; line-height: 1.6; }
+    .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; color: #fff; }
+    .step p { color: var(--text-muted); font-size: 0.9rem; max-width: 280px; margin: 0 auto; line-height: 1.6; }
 
-    /* PRICING */
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-    .pricing-card {
-      background: #fafafa;
-      border: 2px solid #f0f0f0;
-      border-radius: 16px;
-      padding: 3rem 2rem;
-      text-align: center;
-      transition: all 0.3s;
-    }
-    .pricing-card.featured {
-      border-color: #d97706;
-      background: #fff;
+    /* STATS */
+    .stats {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 50%, var(--dark) 100%);
       position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
-    .pricing-card.featured::before {
-      content: 'Most Popular';
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: #d97706; color: #fff;
-      padding: 0.4rem 1.2rem; border-radius: 20px;
-      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .stats::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
     }
-    .pricing-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; }
-    .pricing-card .price { font-size: 3rem; font-weight: 800; color: #1a1a1a; margin-bottom: 0.3rem; }
-    .pricing-card .price span { font-size: 1rem; font-weight: 400; color: #4a4a4a; }
-    .pricing-card .desc { color: #4a4a4a; font-size: 0.95rem; margin-bottom: 2rem; }
-    .pricing-card ul { list-style: none; text-align: left; margin-bottom: 2rem; }
-    .pricing-card ul li { padding: 0.5rem 0; font-size: 0.9rem; color: #4a4a4a; }
-    .pricing-card ul li::before { content: '✓ '; color: #d97706; font-weight: 700; }
-    .pricing-card .btn-primary, .pricing-card .btn-secondary { display: block; text-align: center; }
-
-    .custom-quote {
-      margin-top: 3rem;
-      background: #f5f5f5;
-      border: 2px dashed #e0e0e0;
-      border-radius: 16px;
-      padding: 2.5rem;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
       text-align: center;
     }
-    .custom-quote h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; }
-    .custom-quote p { color: #4a4a4a; font-size: 0.95rem; margin-bottom: 1.2rem; }
-
-    /* DIFFERENTIATORS */
-    .diffs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .diff-card {
-      background: #fafafa;
-      border: 1px solid #f0f0f0;
-      border-radius: 12px;
-      padding: 2rem;
-      transition: all 0.2s;
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
     }
-    .diff-card:hover {
-      border-color: #d97706;
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
     }
-    .diff-card h4 { font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; font-size: 1.1rem; }
-    .diff-card p { color: #4a4a4a; font-size: 0.9rem; line-height: 1.6; }
 
     /* TESTIMONIALS */
-    .testimonials {
-      background: #f5f5f5;
-    }
+    .testimonials { background: linear-gradient(180deg, var(--dark), var(--darker)); }
     .testimonial-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 2rem;
     }
     .testimonial-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all 0.4s;
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '"'; position: absolute; top: 1.5rem; right: 2rem;
+      font-size: 4rem; color: rgba(245,158,11,0.1); font-weight: 900; line-height: 1;
+    }
+    .testimonial-card:hover {
+      border-color: rgba(245,158,11,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
     .testimonial-card .stars {
-      color: #d97706;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.1em;
     }
     .testimonial-card p {
-      color: #4a4a4a;
-      font-size: 0.95rem;
-      line-height: 1.7;
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.8;
       margin-bottom: 1.5rem;
       font-style: italic;
     }
     .testimonial-card .author {
       font-weight: 700;
-      color: #1a1a1a;
-      font-size: 0.9rem;
+      color: #fff;
+      font-size: 0.95rem;
     }
     .testimonial-card .company {
-      color: #4a4a4a;
+      color: var(--text-muted);
       font-size: 0.85rem;
     }
 
-    /* STATS */
-    .stats {
-      background: #1a1a1a;
-      color: #fff;
-      padding: 4rem 0;
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
     }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
+    .pricing-card.featured {
+      border-color: rgba(245,158,11,0.3);
+      background: linear-gradient(180deg, rgba(245,158,11,0.05), var(--card));
+      transform: scale(1.02);
+    }
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute; top: 0; left: 0; right: 0;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: var(--dark);
+      padding: 0.5rem; font-size: 0.75rem;
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .pricing-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    .pricing-card .price { 
+      font-size: 3.5rem; font-weight: 900; 
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3rem;
+    }
+    .pricing-card .price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
+    .pricing-card .desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; }
+    .pricing-card ul { list-style: none; text-align: left; margin-bottom: 2rem; }
+    .pricing-card ul li { padding: 0.5rem 0; font-size: 0.9rem; color: var(--text); }
+    .pricing-card ul li::before { content: '✓ '; color: var(--primary); font-weight: 700; }
+    .pricing-card:hover {
+      border-color: rgba(245,158,11,0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .custom-quote {
+      margin-top: 3rem;
+      background: linear-gradient(135deg, rgba(245,158,11,0.05), rgba(245,158,11,0.02));
+      border: 1px dashed rgba(245,158,11,0.2);
+      border-radius: 20px;
+      padding: 3rem;
       text-align: center;
     }
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 800;
-      color: #d97706;
-      margin-bottom: 0.5rem;
+    .custom-quote h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    .custom-quote p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+    /* WHY US */
+    .diffs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .diff-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.4s;
+      position: relative;
     }
-    .stat-label {
-      color: #a1a1aa;
-      font-size: 0.9rem;
+    .diff-card:hover {
+      border-color: rgba(245,158,11,0.2);
+      transform: translateY(-4px);
     }
+    .diff-card h4 { font-weight: 700; margin-bottom: 0.5rem; color: #fff; font-size: 1.1rem; }
+    .diff-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
 
     /* CTA */
     .cta-section {
       text-align: center;
-      background: linear-gradient(180deg, #f0f0f0 0%, #fafafa 100%);
-      padding: 6rem 0;
+      position: relative;
+      overflow: hidden;
     }
-    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .cta-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245,158,11,0.08) 0%, transparent 70%);
+    }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
 
     /* FAQ */
-    .faq-section {
-      background: #fff;
-    }
     .faq-list {
       max-width: 800px;
       margin: 0 auto;
     }
     details {
-      padding: 1.2rem 0;
-      border-bottom: 1px solid #f0f0f0;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
     }
     summary {
       font-weight: 600;
       cursor: pointer;
       font-size: 1.1rem;
-      color: #1a1a1a;
+      color: #fff;
       list-style: none;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: color 0.3s;
     }
+    summary:hover { color: var(--primary); }
     summary::after {
       content: '+';
-      font-size: 1.5rem;
-      color: #d97706;
+      font-size: 1.8rem;
+      color: var(--primary);
       font-weight: 300;
+      transition: transform 0.3s;
     }
     details[open] summary::after {
       content: '−';
+      transform: rotate(180deg);
     }
     details p {
       margin-top: 1rem;
-      color: #4a4a4a;
+      color: var(--text-muted);
       font-size: 0.95rem;
-      line-height: 1.7;
+      line-height: 1.8;
       padding-right: 2rem;
     }
 
     /* FOOTER */
     footer {
-      background: #1a1a1a;
+      background: var(--darker);
       color: #fff;
-      padding: 3rem 0;
+      padding: 4rem 0;
       text-align: center;
+      position: relative;
     }
-    footer .logo-text { color: #fff; }
-    footer p { color: #a1a1aa; font-size: 0.9rem; margin-top: 0.5rem; }
-    footer a { color: #d97706; text-decoration: none; }
+    footer::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    footer p { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
+    footer a { color: var(--primary); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    /* RESPONSIVE */
+    /* CHAT WIDGET */
+    .chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 1000; font-family: 'Inter', sans-serif; }
+    .chat-toggle {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--dark); display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; cursor: pointer;
+      box-shadow: 0 4px 30px rgba(245,158,11,0.5);
+      transition: all 0.3s; animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 4px 30px rgba(245,158,11,0.5); }
+      50% { box-shadow: 0 4px 40px rgba(245,158,11,0.8); }
+    }
+    .chat-toggle:hover { transform: scale(1.1); }
+    .chat-window {
+      display: none; flex-direction: column;
+      position: absolute; bottom: 75px; right: 0;
+      width: 380px; height: 520px;
+      background: linear-gradient(180deg, #1a1a2e, #0a0a0f);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .chat-window.active { display: flex; }
+    .chat-header {
+      background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.1));
+      color: #fff; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .chat-avatar { font-size: 1.5rem; }
+    .chat-status { font-size: 0.75rem; color: var(--primary); }
+    .chat-close { margin-left: auto; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 1rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .msg { display: flex; }
+    .msg.user { justify-content: flex-end; }
+    .msg-bubble {
+      max-width: 85%; padding: 0.75rem 1rem;
+      border-radius: 14px; font-size: 0.9rem; line-height: 1.5;
+    }
+    .msg.bot .msg-bubble { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); }
+    .msg.user .msg-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--dark); }
+    .chat-input-area {
+      display: flex; padding: 0.75rem; gap: 0.5rem;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .chat-input-area input {
+      flex: 1; padding: 0.6rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; font-size: 0.9rem; outline: none;
+      background: rgba(255,255,255,0.05); color: #fff;
+    }
+    .chat-input-area input:focus { border-color: var(--primary); }
+    .chat-input-area input::placeholder { color: var(--text-muted); }
+    .chat-input-area button {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--dark); border: none;
+      padding: 0.6rem 1rem; border-radius: 10px;
+      font-weight: 700; cursor: pointer;
+    }
+    .lead-form { display: flex; flex-direction: column; gap: 0.5rem; }
+    .lead-form input {
+      padding: 0.5rem; border: 1px solid var(--border);
+      border-radius: 8px; font-size: 0.85rem;
+      background: rgba(255,255,255,0.05); color: #fff;
+    }
+    .lead-form button {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--dark); border: none;
+      padding: 0.6rem; border-radius: 8px;
+      font-weight: 700; cursor: pointer; font-size: 0.85rem;
+    }
+
+    /* ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 768px) {
       .nav-links a:not(.nav-cta) { display: none; }
       .hero { padding-top: 6rem; min-height: auto; }
       section { padding: 4rem 0; }
       .testimonial-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
+      .chat-window { width: calc(100vw - 32px); right: -12px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- PARTICLES -->
+  <div id="particles"></div>
+
   <!-- NAV -->
-  <nav>
+  <nav id="navbar">
     <div class="container">
       <a href="#" class="logo">
         <span class="logo-icon">🐒👑</span>
@@ -390,10 +632,12 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div>
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
       <div class="hero-label">Local Business Marketing Experts</div>
-      <h1>Get Found. Get Chosen.<br><span>Get More Customers.</span></h1>
-      <p>We help local and small businesses improve visibility on <strong>Google, Google Maps, and AI search</strong> — with clear strategy, transparent reporting, and no confusing jargon.</p>
+      <h1>Get Found. Get Chosen.<br><span style="color: var(--primary);">Get More Customers.</span></h1>
+      <p>We help local and small businesses improve visibility on <strong style="color: #fff;">Google, Google Maps, and AI search</strong> — with clear strategy, transparent reporting, and no confusing jargon.</p>
       <div class="hero-buttons">
         <a href="#cta" class="btn-primary">Get a Free Visibility Review →</a>
         <a href="#services" class="btn-secondary">See Our Services</a>
@@ -404,30 +648,30 @@
   <!-- SERVICES -->
   <section id="services">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-label">What We Do</span>
         <h2 class="section-title">Services Designed for Local Visibility</h2>
         <p class="section-subtitle">Every service is built to make your business easier to find, understand, and choose — across the platforms that matter most.</p>
       </div>
 
       <div class="services-grid">
-        <div class="service-card">
+        <div class="service-card reveal">
           <div class="service-icon">📍</div>
           <h3>Google Business Profile Optimization</h3>
           <p>Improve your GBP so it shows up clearer, more complete, and more professional on Google Search and Google Maps.</p>
           <span class="price-tag">Starting at $300</span>
         </div>
-        <div class="service-card">
+        <div class="service-card reveal">
           <div class="service-icon">🤖</div>
           <h3>Answer Engine Optimization (AEO)</h3>
           <p>Structure your business information so AI search tools, voice search, and answer engines can understand and recommend you.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card reveal">
           <div class="service-icon">🔍</div>
           <h3>Search Engine Optimization (SEO)</h3>
           <p>Strengthen your website's organic visibility so customers searching for your services find you before your competitors.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card reveal">
           <div class="service-icon">📱</div>
           <h3>Social Media Marketing</h3>
           <p>Build a stronger social presence that supports trust, brand awareness, and real customer acquisition — not just likes.</p>
@@ -437,31 +681,31 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" style="background: #f5f5f5;">
+  <section id="how" style="background: linear-gradient(180deg, var(--dark), var(--darker));">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-label">Our Process</span>
         <h2 class="section-title">How It Works</h2>
         <p class="section-subtitle">A clear, structured process designed to improve your visibility without overwhelming you.</p>
       </div>
 
       <div class="steps">
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">1</div>
           <h3>Free Visibility Review</h3>
           <p>We audit your current Google Business Profile and online presence to identify what's working and what's missing.</p>
         </div>
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">2</div>
           <h3>Prioritized Action Plan</h3>
           <p>You get a clear roadmap of the highest-impact fixes — no fluff, no guesswork, just practical next steps.</p>
         </div>
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">3</div>
           <h3>Optimization & Execution</h3>
           <p>We implement the improvements, update your profile, refine your content, and strengthen your visibility foundation.</p>
         </div>
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">4</div>
           <h3>Transparent Reporting</h3>
           <p>You receive clear updates showing what was completed and how your visibility is progressing — no mystery, no vague claims.</p>
@@ -474,19 +718,19 @@
   <section class="stats">
     <div class="container">
       <div class="stats-grid">
-        <div>
+        <div class="reveal">
           <div class="stat-number">50+</div>
           <div class="stat-label">Businesses Optimized</div>
         </div>
-        <div>
+        <div class="reveal">
           <div class="stat-number">4.9</div>
           <div class="stat-label">Average Client Rating</div>
         </div>
-        <div>
+        <div class="reveal">
           <div class="stat-number">100%</div>
           <div class="stat-label">Transparent Reporting</div>
         </div>
-        <div>
+        <div class="reveal">
           <div class="stat-number">0</div>
           <div class="stat-label">Hidden Fees</div>
         </div>
@@ -497,26 +741,26 @@
   <!-- TESTIMONIALS -->
   <section id="testimonials" class="testimonials">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-label">Client Success</span>
         <h2 class="section-title">What Our Clients Say</h2>
         <p class="section-subtitle">Real results from real local businesses we've helped grow.</p>
       </div>
 
       <div class="testimonial-grid">
-        <div class="testimonial-card">
+        <div class="testimonial-card reveal">
           <div class="stars">★★★★★</div>
           <p>"Monkey Royal Marketing completely transformed our Google presence. Within weeks, we started showing up in the top 3 for local searches. The transparency and clear reporting made all the difference."</p>
           <div class="author">Sarah Martinez</div>
           <div class="company">Owner, Brooklyn Home Cleaners</div>
         </div>
-        <div class="testimonial-card">
+        <div class="testimonial-card reveal">
           <div class="stars">★★★★★</div>
           <p>"Finally, a marketing team that speaks plain English! They explained everything clearly, delivered on time, and our phone is ringing more than ever. Best investment we've made."</p>
           <div class="author">James Chen</div>
           <div class="company">Founder, Queens Moving Pros</div>
         </div>
-        <div class="testimonial-card">
+        <div class="testimonial-card reveal">
           <div class="stars">★★★★★</div>
           <p>"The free audit alone was eye-opening. They found issues we didn't even know existed. After the optimization, our Google Maps views doubled in the first month."</p>
           <div class="author">Maria Rodriguez</div>
@@ -529,14 +773,14 @@
   <!-- PRICING -->
   <section id="pricing">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-label">Pricing</span>
         <h2 class="section-title">Clear Pricing. No Hidden Fees.</h2>
         <p class="section-subtitle">Transparent deliverables and flexible options — starting with what most local businesses need first.</p>
       </div>
 
       <div class="pricing-grid">
-        <div class="pricing-card">
+        <div class="pricing-card reveal">
           <h3>GBP Audit</h3>
           <div class="price">$0</div>
           <p class="desc">Quick visibility check to identify gaps</p>
@@ -549,7 +793,7 @@
           <a href="#cta" class="btn-secondary">Get Free Audit</a>
         </div>
 
-        <div class="pricing-card featured">
+        <div class="pricing-card featured reveal">
           <h3>GBP Optimization</h3>
           <div class="price">$300 <span>one-time</span></div>
           <p class="desc">Complete profile improvement for local visibility</p>
@@ -563,7 +807,7 @@
           <a href="#cta" class="btn-primary">Get Started →</a>
         </div>
 
-        <div class="pricing-card">
+        <div class="pricing-card reveal">
           <h3>Paid Visibility Audit</h3>
           <div class="price">Custom</div>
           <p class="desc">Deep-dive diagnostics with prioritized action plan</p>
@@ -578,7 +822,7 @@
         </div>
       </div>
 
-      <div class="custom-quote">
+      <div class="custom-quote reveal">
         <h3>Need More? GBP + AEO + Social Media?</h3>
         <p>We also offer custom packages for businesses that want a broader visibility strategy. Scope, deliverables, and pricing are reviewed based on your goals.</p>
         <a href="#cta" class="btn-secondary">Ask for a Custom Quote</a>
@@ -587,36 +831,36 @@
   </section>
 
   <!-- WHY US -->
-  <section id="why" style="background: #f5f5f5;">
+  <section id="why" style="background: linear-gradient(180deg, var(--darker), var(--dark));">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-label">Why Monkey Royal Marketing</span>
         <h2 class="section-title">Built Different for Local Businesses</h2>
         <p class="section-subtitle">Most agencies complicate things. We keep it clear, practical, and focused on what actually gets you customers.</p>
       </div>
 
       <div class="diffs">
-        <div class="diff-card">
+        <div class="diff-card reveal">
           <h4>🎯 Google, Maps & AI Focus</h4>
           <p>We focus on where customers already search — not scattered tactics across every platform.</p>
         </div>
-        <div class="diff-card">
+        <div class="diff-card reveal">
           <h4>📋 Clear Deliverables</h4>
           <p>You always know what's being done, why it matters, and how it's progressing.</p>
         </div>
-        <div class="diff-card">
+        <div class="diff-card reveal">
           <h4>💬 No Jargon</h4>
           <p>We explain SEO, AEO, and GBP in plain business language — not confusing technical terms.</p>
         </div>
-        <div class="diff-card">
+        <div class="diff-card reveal">
           <h4>📊 Transparent Reporting</h4>
           <p>You see the work completed, the metrics tracked, and the next steps — no mystery, no vague promises.</p>
         </div>
-        <div class="diff-card">
+        <div class="diff-card reveal">
           <h4>🔗 Connected Strategy</h4>
           <p>GBP, SEO, AEO, and social media work together as one visibility system — not isolated channels.</p>
         </div>
-        <div class="diff-card">
+        <div class="diff-card reveal">
           <h4>📈 Flexible & Scalable</h4>
           <p>Start with what you need most. Add services as your business grows. No lock-in, no pressure.</p>
         </div>
@@ -627,12 +871,14 @@
   <!-- CTA -->
   <section id="cta" class="cta-section">
     <div class="container">
-      <span class="section-label">Ready to Start</span>
-      <h2 class="section-title">Let's Review Your Visibility</h2>
-      <p class="section-subtitle" style="margin: 0 auto 2.5rem;">The first step is simple. We'll review your current online presence and show you exactly what needs attention — at no cost.</p>
-      <div class="cta-buttons">
-        <a href="mailto:monkeyroyalmarketing@gmail.com" class="btn-primary">📧 Get Your Free Review</a>
-        <a href="#faq" class="btn-secondary">Read FAQs</a>
+      <div class="reveal">
+        <span class="section-label">Ready to Start</span>
+        <h2 class="section-title">Let's Review Your Visibility</h2>
+        <p class="section-subtitle" style="margin: 0 auto 2.5rem;">The first step is simple. We'll review your current online presence and show you exactly what needs attention — at no cost.</p>
+        <div class="cta-buttons">
+          <a href="mailto:monkeyroyalmarketing@gmail.com" class="btn-primary">📧 Get Your Free Review</a>
+          <a href="#faq" class="btn-secondary">Read FAQs</a>
+        </div>
       </div>
     </div>
   </section>
@@ -640,12 +886,12 @@
   <!-- FAQ -->
   <section id="faq" class="faq-section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-label">FAQs</span>
         <h2 class="section-title">Common Questions</h2>
       </div>
 
-      <div class="faq-list">
+      <div class="faq-list reveal">
         <details>
           <summary>What does Monkey Royal Marketing do?</summary>
           <p>We help local and small businesses improve their online visibility so potential customers can find them more easily on Google, Google Maps, and AI-powered search results. Our core services include Google Business Profile optimization, AEO, SEO, and social media support.</p>
@@ -673,9 +919,9 @@
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p style="margin-bottom: 0.5rem;">
-        <span class="logo-icon">🐒👑</span>
-        <strong>Monkey Royal Marketing</strong>
+      <p style="margin-bottom: 0.5rem; font-size: 1.2rem;">
+        <span>🐒👑</span>
+        <strong style="color: #fff;">Monkey Royal Marketing</strong>
       </p>
       <p>
         <a href="mailto:monkeyroyalmarketing@gmail.com">monkeyroyalmarketing@gmail.com</a>
@@ -684,7 +930,7 @@
     </div>
   </footer>
 
-  <!-- AI CHAT WIDGET -->
+  <!-- CHAT WIDGET -->
   <div id="chat-widget" class="chat-widget">
     <div class="chat-toggle" onclick="toggleChat()">
       <span>💬</span>
@@ -694,7 +940,7 @@
         <div class="chat-avatar">🐒</div>
         <div>
           <strong>Monkey Royal Assistant</strong>
-          <div class="chat-status">Online — Replies instantly</div>
+          <div class="chat-status">● Online — Replies instantly</div>
         </div>
         <button class="chat-close" onclick="toggleChat()">×</button>
       </div>
@@ -710,80 +956,40 @@
     </div>
   </div>
 
-  <style>
-    .chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 1000; font-family: 'Inter', sans-serif; }
-    .chat-toggle {
-      width: 60px; height: 60px; border-radius: 50%;
-      background: #d97706; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; cursor: pointer;
-      box-shadow: 0 4px 20px rgba(217,119,6,0.4);
-      transition: transform 0.2s;
-    }
-    .chat-toggle:hover { transform: scale(1.05); }
-    .chat-window {
-      display: none; flex-direction: column;
-      position: absolute; bottom: 75px; right: 0;
-      width: 380px; height: 520px;
-      background: #fff; border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-      border: 1px solid #f0f0f0;
-      overflow: hidden;
-    }
-    .chat-window.active { display: flex; }
-    .chat-header {
-      background: #1a1a1a; color: #fff;
-      padding: 1rem; display: flex; align-items: center; gap: 0.75rem;
-    }
-    .chat-avatar { font-size: 1.5rem; }
-    .chat-status { font-size: 0.75rem; color: #a1a1aa; }
-    .chat-close {
-      margin-left: auto; background: none; border: none;
-      color: #fff; font-size: 1.5rem; cursor: pointer;
-    }
-    .chat-messages {
-      flex: 1; overflow-y: auto; padding: 1rem;
-      display: flex; flex-direction: column; gap: 0.75rem;
-    }
-    .msg { display: flex; }
-    .msg.user { justify-content: flex-end; }
-    .msg-bubble {
-      max-width: 85%; padding: 0.75rem 1rem;
-      border-radius: 12px; font-size: 0.9rem; line-height: 1.5;
-    }
-    .msg.bot .msg-bubble { background: #f5f5f5; color: #1a1a1a; }
-    .msg.user .msg-bubble { background: #d97706; color: #fff; }
-    .chat-input-area {
-      display: flex; padding: 0.75rem; gap: 0.5rem;
-      border-top: 1px solid #f0f0f0;
-    }
-    .chat-input-area input {
-      flex: 1; padding: 0.6rem 1rem; border: 1px solid #e5e5e5;
-      border-radius: 8px; font-size: 0.9rem; outline: none;
-    }
-    .chat-input-area input:focus { border-color: #d97706; }
-    .chat-input-area button {
-      background: #d97706; color: #fff; border: none;
-      padding: 0.6rem 1rem; border-radius: 8px;
-      font-weight: 600; cursor: pointer;
-    }
-    .chat-input-area button:hover { background: #b45309; }
-    .lead-form { display: flex; flex-direction: column; gap: 0.5rem; }
-    .lead-form input {
-      padding: 0.5rem; border: 1px solid #e5e5e5;
-      border-radius: 6px; font-size: 0.85rem;
-    }
-    .lead-form button {
-      background: #d97706; color: #fff; border: none;
-      padding: 0.6rem; border-radius: 6px;
-      font-weight: 600; cursor: pointer; font-size: 0.85rem;
-    }
-    @media (max-width: 480px) {
-      .chat-window { width: calc(100vw - 32px); right: -12px; }
-    }
-  </style>
-
   <script>
+    // PARTICLES
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.width = Math.random() * 4 + 2 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // NAVBAR SCROLL
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // SCROLL REVEAL
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // CHAT
     function toggleChat() {
       document.getElementById('chatWindow').classList.toggle('active');
     }
@@ -793,7 +999,7 @@
       if (!msg) return;
       addMsg(msg, 'user');
       input.value = '';
-      setTimeout(() => botReply(msg), 500);
+      setTimeout(() => botReply(msg), 600);
     }
     function addMsg(text, sender) {
       const container = document.getElementById('chatMessages');
@@ -806,7 +1012,6 @@
     function botReply(userMsg) {
       const msg = userMsg.toLowerCase();
       let reply = '';
-
       if (msg.includes('price') || msg.includes('cost') || msg.includes('$') || msg.includes('how much')) {
         reply = 'Our GBP Optimization starts at <strong>$300 one-time</strong>. We also offer a <strong>free GBP audit</strong> and custom packages for SEO + AEO + social media. Want me to send you a quote?';
       } else if (msg.includes('service') || msg.includes('do') || msg.includes('offer') || msg.includes('help')) {
@@ -830,7 +1035,6 @@
       } else {
         reply = 'Great question! I want to make sure I give you the right info. Are you asking about:<br><br>• Our services (GBP, SEO, AEO, Social)<br>• Pricing and packages<br>• Getting a free audit<br>• Or something else?<br><br>Just let me know!';
       }
-
       addMsg(reply, 'bot');
     }
     function leadForm() {
