@@ -211,7 +211,7 @@
     /* SERVICES */
     .services-grid { 
       display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
       gap: 1.5rem; 
     }
     .service-card {
@@ -720,6 +720,16 @@
           <h3>Social Media Marketing</h3>
           <p>Build a stronger social presence that supports trust, brand awareness, and real customer acquisition — not just likes.</p>
         </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎨</div>
+          <h3>Web Design</h3>
+          <p>Custom-built websites that look professional, load fast, and convert visitors into customers — designed specifically for local businesses.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚡</div>
+          <h3>AI Automation</h3>
+          <p>Streamline your business with AI-powered tools — automated lead follow-up, appointment scheduling, customer support, and smart workflows.</p>
+        </div>
       </div>
 
       <div class="image-showcase">
@@ -1065,7 +1075,7 @@
       if (msg.includes('price') || msg.includes('cost') || msg.includes('$') || msg.includes('how much')) {
         reply = 'Our GBP Optimization starts at <strong>$300 one-time</strong>. We also offer a <strong>free GBP audit</strong> and custom packages for SEO + AEO + social media. Want me to send you a quote?';
       } else if (msg.includes('service') || msg.includes('do') || msg.includes('offer') || msg.includes('help')) {
-        reply = 'We help local businesses get found on Google, Google Maps, and AI search. Our core services:<br><br>📍 GBP Optimization<br>🤖 Answer Engine Optimization (AEO)<br>🔍 SEO<br>📱 Social Media Marketing<br><br>Which one are you most interested in?';
+        reply = 'We help local businesses grow online. Our core services:<br><br>📍 GBP Optimization<br>🤖 Answer Engine Optimization (AEO)<br>🔍 SEO<br>📱 Social Media Marketing<br>🎨 Web Design<br>⚡ AI Automation<br><br>Which one are you most interested in?';
       } else if (msg.includes('gbp') || msg.includes('google business') || msg.includes('profile')) {
         reply = 'Google Business Profile Optimization is our most popular service — <strong>$300 one-time</strong>. We audit and improve your entire profile: categories, services, description, photos, reviews, and more. Want a free audit first?';
       } else if (msg.includes('seo') || msg.includes('search')) {
@@ -1074,6 +1084,10 @@
         reply = 'Answer Engine Optimization (AEO) structures your business info so AI tools like ChatGPT can understand and recommend you. Pricing is custom. Interested?';
       } else if (msg.includes('social') || msg.includes('instagram') || msg.includes('facebook')) {
         reply = 'Our Social Media Marketing builds real trust and awareness — not just likes. Custom pricing based on scope. Want to discuss?';
+      } else if (msg.includes('web') || msg.includes('design') || msg.includes('website')) {
+        reply = 'Our Web Design service creates custom, professional websites built specifically for local businesses. Fast loading, mobile-friendly, and designed to convert visitors into customers. Pricing starts custom based on your needs. Want a quote?';
+      } else if (msg.includes('ai') || msg.includes('automation') || msg.includes('bot') || msg.includes('auto')) {
+        reply = 'Our AI Automation service streamlines your business with smart tools — automated lead follow-up, appointment scheduling, customer support, and workflow automation. Save time and never miss a lead. Custom pricing. Interested?';
       } else if (msg.includes('quote') || msg.includes('contact') || msg.includes('email') || msg.includes('call') || msg.includes('reach')) {
         reply = 'I\'d love to connect you with our team! Leave your name, email, and phone, and we\'ll reach out within 24 hours.<br><br>' + leadForm();
       } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey')) {
